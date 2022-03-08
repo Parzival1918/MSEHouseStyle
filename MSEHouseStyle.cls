@@ -13,8 +13,9 @@
 \setcounter{subsubsubHeadingCount}{0}
 \setcounter{subsubsubsubHeadingCount}{0}
 
-\newcommand{\hBoxHeaders}{1.6cm}
+\newcommand{\hBoxHeaders}{2.5em}
 \newcommand{\headerNum}{-2em}
+\newcommand{\headerNumStar}{-1.8em}
 \newcommand{\topHeaderNum}{-0.2cm}
 
 \newcommand{\Text}{
@@ -134,8 +135,13 @@
     \vskip -0.8cm
 }
 
-\renewcommand{\section}[1]{
-    \medskip
+\makeatletter
+\renewcommand{\section}{\@ifstar\sectionStar\sectionNoStar}
+\makeatother
+
+\newcommand{\sectionNoStar}[1]{
+    \phantomsection
+    \bigskip
     \addtocounter{headingCount}{1}
     \par
     \hskip \headerNum %to fix it to the left side
@@ -151,6 +157,22 @@
     \setcounter{subsubHeadingCount}{0}
     \setcounter{subsubsubHeadingCount}{0}
     \setcounter{subsubsubsubHeadingCount}{0}
+    
+    \addcontentsline{toc}{section}{\theheadingCount\hspace{1em}#1}
+    \medskip
+    
+    \Text
+    %\ignorespacesafterend
+}
+
+\newcommand{\sectionStar}[1]{
+    \phantomsection
+    \bigskip
+    \hskip \headerNumStar
+    \hbox{
+        \noindent\MainHeading #1
+    }
+    %\addcontentsline{toc}{section}{#1}
     \medskip
     
     \Text
@@ -162,7 +184,12 @@
 %                                   {2.3ex \@plus.2ex}%
 %                                   {\MainHeading}}
 
-\renewcommand{\subsection}[1]{
+\makeatletter
+\renewcommand{\subsection}{\@ifstar\subsectionStar\subsectionNoStar}
+\makeatother
+
+\newcommand{\subsectionNoStar}[1]{
+    \phantomsection
     \medskip
     \addtocounter{subHeadingCount}{1}
     \par
@@ -179,11 +206,31 @@
     \setcounter{subsubsubHeadingCount}{0}
     \setcounter{subsubsubsubHeadingCount}{0}
     
+    \addcontentsline{toc}{subsection}{\theheadingCount.\thesubHeadingCount\hspace{1em}#1}
     \medskip
     \Text
 }
 
-\renewcommand{\subsubsection}[1]{
+\newcommand{\subsectionStar}[1]{
+    \phantomsection
+    \bigskip
+    \hskip \headerNumStar
+    \hbox{
+        \noindent\SubHeading #1
+    }
+    %\addcontentsline{toc}{section}{#1}
+    \medskip
+    
+    \Text
+    %\ignorespacesafterend
+}
+
+\makeatletter
+\renewcommand{\subsubsection}{\@ifstar\subsubsectionStar\subsubsectionNoStar}
+\makeatother
+
+\newcommand{\subsubsectionNoStar}[1]{
+    \phantomsection
     \medskip
     \addtocounter{subsubHeadingCount}{1}
     \par
@@ -203,7 +250,26 @@
     \Text
 }
 
-\newcommand{\subsubsubsection}[1]{
+\newcommand{\subsubsectionStar}[1]{
+    \phantomsection
+    \bigskip
+    \hskip \headerNumStar
+    \hbox{
+        \noindent\SubSubHeading #1
+    }
+    %\addcontentsline{toc}{section}{#1}
+    \medskip
+    
+    \Text
+    %\ignorespacesafterend
+}
+
+\makeatletter
+\newcommand{\subsubsubsection}{\@ifstar\subsubsubsectionStar\subsubsubsectionNoStar}
+\makeatother
+
+\newcommand{\subsubsubsectionNoStar}[1]{
+    \phantomsection
     \medskip
     \addtocounter{subsubsubHeadingCount}{1}
     \par
@@ -222,7 +288,26 @@
     \Text
 }
 
-\newcommand{\subsubsubsubsection}[1]{
+\newcommand{\subsubsubsectionStar}[1]{
+    \phantomsection
+    \bigskip
+    \hskip \headerNumStar
+    \hbox{
+        \noindent\SubSubSubHeading #1
+    }
+    %\addcontentsline{toc}{section}{#1}
+    \medskip
+    
+    \Text
+    %\ignorespacesafterend
+}
+
+\makeatletter
+\newcommand{\subsubsubsubsection}{\@ifstar\subsubsubsubsectionStar\subsubsubsubsectionNoStar}
+\makeatother
+
+\newcommand{\subsubsubsubsectionNoStar}[1]{
+    \phantomsection
     \medskip
     \addtocounter{subsubsubsubHeadingCount}{1}
     \par
@@ -237,6 +322,20 @@
     }
     \medskip
     \Text
+}
+
+\newcommand{\subsubsubsubsectionStar}[1]{
+    \phantomsection
+    \bigskip
+    \hskip \headerNumStar
+    \hbox{
+        \noindent\SubSubSubSubHeading #1
+    }
+    %\addcontentsline{toc}{section}{#1}
+    \medskip
+    
+    \Text
+    %\ignorespacesafterend
 }
 
 \newcommand{\data}[1]{
