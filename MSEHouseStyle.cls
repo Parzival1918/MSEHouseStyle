@@ -1,12 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{MSEHouseStyle}[2022/03/06 Document class of the official Materials Science and Engineering Department House Style.]
+\ProvidesClass{MSEHouseStyle}[2022/03/09 Document class of the official Materials Science and Engineering Department House Style.]
 
+\newcounter{coverPage}
+\newcounter{pageNum}
 \newcounter{qcounter}
 \newcounter{headingCount}
 \newcounter{subHeadingCount}
 \newcounter{subsubHeadingCount}
 \newcounter{subsubsubHeadingCount}
 \newcounter{subsubsubsubHeadingCount}
+\setcounter{coverPage}{0}
+\setcounter{pageNum}{1}
 \setcounter{headingCount}{0}
 \setcounter{subHeadingCount}{0}
 \setcounter{subsubHeadingCount}{0}
@@ -17,6 +21,11 @@
 \newcommand{\headerNum}{-2em}
 \newcommand{\headerNumStar}{-1.8em}
 \newcommand{\topHeaderNum}{-0.2cm}
+
+\newcommand{\university}{The University of Sheffield}
+\newcommand{\department}{Materials Science \& Engineering}
+\newcommand{\country}{United Kingdom}
+\newcommand{\subtitle}{Subtitle}
 
 \newcommand{\Text}{
     \normalsize
@@ -77,6 +86,8 @@
 
 \RequirePackage{ctable}
 \RequirePackage{subcaption}
+\RequirePackage{ifthen}
+\RequirePackage{titling}
 
 \DeclareCaptionFormat{custom}
 {%
@@ -92,16 +103,23 @@
         \hbox to \textwidth{
             \@title ; \@author ; \@date
             \hfill
-            \thepage
+            \ifnum\thecoverPage=0
+                \thepage
+            \else
+                \thepageNum
+                \addtocounter{pageNum}{1}
+            \fi
         }
     \fi
 }%
 
 \renewcommand{\@oddfoot}{
-    \ifnum\value{page}=1
-        %\begin{center}
-            1
-        %\end{center}
+    \ifnum\thecoverPage=0
+        \ifnum\value{page}=1
+            %\begin{center}
+                1
+            %\end{center}
+        \fi
     \fi
 }%
 
@@ -379,6 +397,55 @@
     }
     #1}
     {\end{list}}
+    
+\newenvironment{boxed}[1]
+    {\begin{center}
+    \ifthenelse{\equal{#1}{}}{}{\TableHeading#1\Text\\[1ex]}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    {\\\\\hline
+    \end{tabular}\end{center}
+    }
+    
+%%Afegir pagina de portada i contraportada si es passa un parametre a la classe. Suposo que es util en treballs de final de curs?
+
+\newcommand{\setuniversity}[1]{
+    \renewcommand{\university}{#1}
+}
+
+\newcommand{\setdepartment}[1]{
+    \renewcommand{\department}{#1}
+}
+
+\newcommand{\setcountry}[1]{
+    \renewcommand{\country}{#1}
+}
+
+\newcommand{\setsubtitle}[1]{
+    \renewcommand{\subtitle}{#1}
+}
+
+\newcommand{\makecoverpage}{
+    \setcounter{coverPage}{1}
+    \begin{center}
+        \vspace*{3em}
+        \Title \thetitle \par
+        \vspace{0.5em}
+        \Subtitle\subtitle
+        
+        \vfill
+        \includegraphics[width = 0.4\textwidth]{UoS.png} \par
+        \Emphasis\department \par
+        \university \par
+        \Text\country \par
+        \theauthor \par
+        \thedate
+        
+        \Text
+    \end{center}
+    \clearpage
+}
 
 \renewcommand{\normalsize}{\fontsize{11pt}{16pt}\fontseries{m}\selectfont}
 \setlength{\paperheight}{297mm}%
