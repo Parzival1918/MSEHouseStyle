@@ -88,6 +88,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{ifthen}
 \RequirePackage{titling}
+\RequirePackage[sorting=none]{biblatex}
 
 \DeclareCaptionFormat{custom}
 {%
@@ -447,6 +448,101 @@
     \clearpage
 }
 
+%Canviar l'estil de la bibliografia
+\renewcommand*{\newunitpunct}{\addcomma\space}
+
+\DeclareFieldFormat
+  [article,incollection,inproceedings,patent,thesis,unpublished,misc,online,book,inbook]
+  {title}{\textit{#1}}
+
+\DeclareFieldFormat
+  [article]
+  {volume}{\textbf{#1}}
+
+%\DeclareFieldFormat
+%  [article]
+%  {number}{\textbf{#1}}
+  
+\DeclareFieldFormat
+  [incollection,inproceedings,patent,thesis,unpublished,misc,online,book,inbook,article]
+  {year}{({#1})}
+
+\DeclareFieldFormat
+  [inbook]
+  {chapter}{\mkbibquote{#1}} 
+  
+\DeclareFieldFormat
+  [article]
+  {journaltitle}{#1} 
+
+\DeclareFieldFormat
+  [inbook]
+  {date}{({#1})} 
+  
+\DeclareBibliographyDriver{book}{%
+  \printnames{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{year}%
+  \newunit
+  \printlist{publisher}%
+  \newunit
+  \printlist{location}%
+  \newunit
+  \printfield{pages}
+  \newunit
+  \printfield{isbn}
+  \finentry}
+  
+\DeclareBibliographyDriver{inbook}{%
+  \printnames{author}%
+  \newunit\newblock
+  \printfield{chapter}%
+  \newunit\newblock
+  \printfield{addendum}
+  \newunit
+  \printfield{title}%
+  \newunit
+  \printfield{year}%
+  \newunit
+  \printlist{publisher}%
+  \newunit
+  \printlist{location}%
+  \newunit
+  \printfield{pages}
+  \newunit
+  \printfield{isbn}
+  \finentry}
+  
+\DeclareBibliographyDriver{article}{ %Article entry format
+  \printnames{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{journaltitle}
+  \newunit
+  \printfield{volume}
+  \newunit\newblock
+  \printfield{year}
+  \newunit
+  \iffieldundef{number}
+    {\printfield{pages}}
+    {\printfield{number}}
+  \newunit
+  \printfield{doi}
+  \finentry}
+
+\DeclareBibliographyDriver{online}{ %Article entry format
+  \printnames{author}%
+  \newunit\newblock
+  \printfield{title}%
+  \newunit\newblock
+  \printfield{url}
+  \newunit
+  \printfield{addendum}
+  \finentry}
+  
 \renewcommand{\normalsize}{\fontsize{11pt}{16pt}\fontseries{m}\selectfont}
 \setlength{\paperheight}{297mm}%
 \setlength{\paperwidth}{210mm}%
