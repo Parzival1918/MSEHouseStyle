@@ -401,7 +401,7 @@
     
 \newenvironment{boxed}[1]
     {\begin{center}
-    \ifthenelse{\equal{#1}{}}{}{\TableHeading#1\Text\\[1ex]}
+    \ifthenelse{\equal{#1}{}}{}{\TableHeading#1\Text\\*[1ex]}
     \begin{tabular}{|p{0.9\textwidth}|}
     \hline\\
     }
