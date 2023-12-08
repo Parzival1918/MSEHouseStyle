@@ -6,4 +6,4 @@
 
 This is the documentation for the MSEHouseStyle class for LaTeX.
 
-Read the PDF documentation [documentation](documnetation.pdf) to learn how to use it.
+Read the PDF [documentation](documentation.pdf) to learn how to use it.
