@@ -88,6 +88,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{ifthen}
 \RequirePackage{titling}
+\RequirePackage{hyperref}
 \RequirePackage[sorting=none]{biblatex}
 
 \DeclareCaptionFormat{custom}
